@@ -1,0 +1,40 @@
+{
+  "model": "YOLOv8n",
+  "run_name": "rod_yolov8n_50ep",
+  "epochs_requested": 50,
+  "image_size": 640,
+  "batch_size": 8,
+  "seed": 42,
+  "validation_images": 3511,
+  "validation_mAP50": 0.9065728946303966,
+  "validation_mAP50_95": 0.7258881604233733,
+  "validation_precision": 0.8736306961517292,
+  "validation_recall": 0.8410882075890719,
+  "training_seconds": 10352.13772058487,
+  "best_checkpoint": "/kaggle/working/vision_assist/rod_yolov8n_50ep/weights/best.pt",
+  "dataset_preparation": {
+    "train": {
+      "images": 19186,
+      "label_files": 19186,
+      "bbox_annotations_preserved": 28336,
+      "polygon_annotations_converted": 3915,
+      "skipped_annotations": 0
+    },
+    "valid": {
+      "images": 3511,
+      "label_files": 3511,
+      "bbox_annotations_preserved": 4764,
+      "polygon_annotations_converted": 808,
+      "skipped_annotations": 0
+    },
+    "test": {
+      "images": 1629,
+      "label_files": 1629,
+      "bbox_annotations_preserved": 1957,
+      "polygon_annotations_converted": 415,
+      "skipped_annotations": 0
+    }
+  },
+  "dataset_yaml": "/kaggle/working/rod_detection.yaml",
+  "checkpoint_size_mb": 6.219
+}

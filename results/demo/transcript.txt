@@ -1,0 +1,8 @@
+   0.0s  IMG_23777.jpg: Caution. Car, centre. Tree, left.
+   4.5s  IMG_22849.jpg: Caution. Bus, centre.
+   7.5s  IMG_23795.jpg: Caution. Motorcycle, right. Tree, centre.
+  12.5s  IMG_23763.jpg: Caution. Motorcycle, left.
+  15.9s  IMG_24209.jpg: Person, right. Crosswalk, centre.
+  19.8s  IMG_23764.jpg: Tree, centre. Tree, left.
+  23.3s  IMG_20955.jpg: Caution. Stairs, centre.
+  26.5s  IMG_20822.jpg: Caution. Manhole, centre.

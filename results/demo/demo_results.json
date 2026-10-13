@@ -1,0 +1,824 @@
+{
+  "vision_assist_version": "0.2.0",
+  "model": "rod_yolov8n_50ep_best.pt",
+  "settings": {
+    "conf": 0.35,
+    "imgsz": 640,
+    "max_alerts": 2,
+    "cooldown_s": 6.0,
+    "min_frame_s": 2.0,
+    "gap_s": 0.5,
+    "device": "auto"
+  },
+  "hardware": "cpu",
+  "image_count": 8,
+  "latency": {
+    "model_load_ms": 53.4,
+    "inference": {
+      "n": 8,
+      "mean_ms": 146.1,
+      "median_ms": 155.9,
+      "p95_ms": 166.4,
+      "max_ms": 166.4
+    },
+    "tts": {
+      "n": 8,
+      "mean_ms": 18.6,
+      "median_ms": 18.3,
+      "p95_ms": 20.3,
+      "max_ms": 20.3
+    },
+    "per_frame_detect_to_audio": {
+      "n": 8,
+      "mean_ms": 180.7,
+      "median_ms": 190.1,
+      "p95_ms": 201.4,
+      "max_ms": 201.4
+    }
+  },
+  "outputs": {
+    "audio": "vision_assist_demo.wav",
+    "audio_duration_s": 29.7,
+    "video": "vision_assist_demo.mp4",
+    "video_probe": {
+      "duration_s": 29.7,
+      "has_video": true,
+      "has_audio": true
+    }
+  },
+  "frames": [
+    {
+      "index": 1,
+      "image": "IMG_23777.jpg",
+      "start_s": 0.0,
+      "duration_s": 4.5,
+      "detections": [
+        {
+          "class_name": "Road",
+          "confidence": 0.8169,
+          "bbox": [
+            1.1,
+            319.9,
+            639.2,
+            479.9
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Car",
+          "confidence": 0.6944,
+          "bbox": [
+            205.2,
+            264.3,
+            270.6,
+            323.8
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Person",
+          "confidence": 0.668,
+          "bbox": [
+            162.5,
+            258.2,
+            188.4,
+            324.7
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Person",
+          "confidence": 0.6623,
+          "bbox": [
+            135.2,
+            258.3,
+            159.0,
+            327.7
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Person",
+          "confidence": 0.6605,
+          "bbox": [
+            101.7,
+            260.9,
+            126.9,
+            326.6
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Building",
+          "confidence": 0.6475,
+          "bbox": [
+            280.0,
+            0.0,
+            640.0,
+            294.7
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Electrical Pole",
+          "confidence": 0.5856,
+          "bbox": [
+            218.1,
+            140.3,
+            239.8,
+            272.7
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Tree",
+          "confidence": 0.5287,
+          "bbox": [
+            0.0,
+            25.8,
+            62.5,
+            289.9
+          ],
+          "image_width": 640,
+          "image_height": 480
+        }
+      ],
+      "alerts_spoken": [
+        {
+          "class_name": "Car",
+          "tier": "high",
+          "image_region": "centre",
+          "confidence": 0.6944,
+          "box_area_frac": 0.0126
+        },
+        {
+          "class_name": "Tree",
+          "tier": "medium",
+          "image_region": "left",
+          "confidence": 0.5287,
+          "box_area_frac": 0.0537
+        }
+      ],
+      "alerts_suppressed": [
+        {
+          "class_name": "Electrical Pole",
+          "tier": "medium",
+          "image_region": "centre",
+          "confidence": 0.5856,
+          "box_area_frac": 0.0094
+        },
+        {
+          "class_name": "Person",
+          "tier": "medium",
+          "image_region": "left",
+          "confidence": 0.668,
+          "box_area_frac": 0.0056
+        }
+      ],
+      "message": "Caution. Car, centre. Tree, left.",
+      "inference_ms": 166.4
+    },
+    {
+      "index": 2,
+      "image": "IMG_22849.jpg",
+      "start_s": 4.5,
+      "duration_s": 3.0,
+      "detections": [
+        {
+          "class_name": "Bus",
+          "confidence": 0.9126,
+          "bbox": [
+            55.4,
+            11.3,
+            394.8,
+            397.6
+          ],
+          "image_width": 416,
+          "image_height": 416
+        }
+      ],
+      "alerts_spoken": [
+        {
+          "class_name": "Bus",
+          "tier": "high",
+          "image_region": "centre",
+          "confidence": 0.9126,
+          "box_area_frac": 0.7576
+        }
+      ],
+      "alerts_suppressed": [],
+      "message": "Caution. Bus, centre.",
+      "inference_ms": 162.7
+    },
+    {
+      "index": 3,
+      "image": "IMG_23795.jpg",
+      "start_s": 7.5,
+      "duration_s": 5.0,
+      "detections": [
+        {
+          "class_name": "Road",
+          "confidence": 0.8668,
+          "bbox": [
+            0.4,
+            261.5,
+            640.0,
+            480.0
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Tree",
+          "confidence": 0.842,
+          "bbox": [
+            269.3,
+            0.0,
+            438.0,
+            223.9
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Motorcycle",
+          "confidence": 0.7305,
+          "bbox": [
+            528.0,
+            96.6,
+            640.0,
+            357.9
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Building",
+          "confidence": 0.7297,
+          "bbox": [
+            137.8,
+            0.4,
+            283.5,
+            251.0
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Dustbin",
+          "confidence": 0.717,
+          "bbox": [
+            436.2,
+            210.6,
+            491.7,
+            262.9
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Electrical Pole",
+          "confidence": 0.7056,
+          "bbox": [
+            84.9,
+            0.0,
+            116.2,
+            269.1
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Tree",
+          "confidence": 0.6696,
+          "bbox": [
+            456.2,
+            0.1,
+            615.3,
+            136.7
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Tree",
+          "confidence": 0.5642,
+          "bbox": [
+            0.0,
+            0.0,
+            50.6,
+            227.4
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Tree",
+          "confidence": 0.4787,
+          "bbox": [
+            0.0,
+            0.0,
+            53.6,
+            141.6
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Electrical Pole",
+          "confidence": 0.3793,
+          "bbox": [
+            78.9,
+            0.1,
+            124.2,
+            265.5
+          ],
+          "image_width": 640,
+          "image_height": 480
+        }
+      ],
+      "alerts_spoken": [
+        {
+          "class_name": "Motorcycle",
+          "tier": "high",
+          "image_region": "right",
+          "confidence": 0.7305,
+          "box_area_frac": 0.0952
+        },
+        {
+          "class_name": "Tree",
+          "tier": "medium",
+          "image_region": "centre",
+          "confidence": 0.842,
+          "box_area_frac": 0.123
+        }
+      ],
+      "alerts_suppressed": [
+        {
+          "class_name": "Tree",
+          "tier": "medium",
+          "image_region": "right",
+          "confidence": 0.6696,
+          "box_area_frac": 0.0707
+        },
+        {
+          "class_name": "Electrical Pole",
+          "tier": "medium",
+          "image_region": "left",
+          "confidence": 0.3793,
+          "box_area_frac": 0.0392
+        },
+        {
+          "class_name": "Tree",
+          "tier": "medium",
+          "image_region": "left",
+          "confidence": 0.5642,
+          "box_area_frac": 0.0375
+        },
+        {
+          "class_name": "Dustbin",
+          "tier": "medium",
+          "image_region": "right",
+          "confidence": 0.717,
+          "box_area_frac": 0.0094
+        }
+      ],
+      "message": "Caution. Motorcycle, right. Tree, centre.",
+      "inference_ms": 129.2
+    },
+    {
+      "index": 4,
+      "image": "IMG_23763.jpg",
+      "start_s": 12.5,
+      "duration_s": 3.4,
+      "detections": [
+        {
+          "class_name": "Road",
+          "confidence": 0.7885,
+          "bbox": [
+            1.2,
+            286.6,
+            640.0,
+            479.9
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Building",
+          "confidence": 0.7683,
+          "bbox": [
+            536.0,
+            0.0,
+            640.0,
+            349.5
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Traffic sign",
+          "confidence": 0.5898,
+          "bbox": [
+            164.2,
+            200.2,
+            238.0,
+            322.8
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Tree",
+          "confidence": 0.5375,
+          "bbox": [
+            11.4,
+            0.0,
+            501.0,
+            157.0
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Traffic sign",
+          "confidence": 0.469,
+          "bbox": [
+            459.6,
+            259.2,
+            492.5,
+            329.5
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Motorcycle",
+          "confidence": 0.4524,
+          "bbox": [
+            0.0,
+            147.2,
+            273.5,
+            319.4
+          ],
+          "image_width": 640,
+          "image_height": 480
+        }
+      ],
+      "alerts_spoken": [
+        {
+          "class_name": "Motorcycle",
+          "tier": "high",
+          "image_region": "left",
+          "confidence": 0.4524,
+          "box_area_frac": 0.1533
+        }
+      ],
+      "alerts_suppressed": [
+        {
+          "class_name": "Tree",
+          "tier": "medium",
+          "image_region": "centre",
+          "confidence": 0.5375,
+          "box_area_frac": 0.2502
+        },
+        {
+          "class_name": "Traffic sign",
+          "tier": "low",
+          "image_region": "left",
+          "confidence": 0.5898,
+          "box_area_frac": 0.0295
+        },
+        {
+          "class_name": "Traffic sign",
+          "tier": "low",
+          "image_region": "right",
+          "confidence": 0.469,
+          "box_area_frac": 0.0075
+        }
+      ],
+      "message": "Caution. Motorcycle, left.",
+      "inference_ms": 116.8
+    },
+    {
+      "index": 5,
+      "image": "IMG_24209.jpg",
+      "start_s": 15.9,
+      "duration_s": 3.9,
+      "detections": [
+        {
+          "class_name": "Pedestrian crosswalk",
+          "confidence": 0.5934,
+          "bbox": [
+            216.7,
+            383.8,
+            364.4,
+            408.2
+          ],
+          "image_width": 640,
+          "image_height": 640
+        },
+        {
+          "class_name": "Pedestrian crosswalk",
+          "confidence": 0.5738,
+          "bbox": [
+            370.9,
+            284.5,
+            384.9,
+            313.2
+          ],
+          "image_width": 640,
+          "image_height": 640
+        },
+        {
+          "class_name": "Pedestrian crosswalk",
+          "confidence": 0.5483,
+          "bbox": [
+            207.4,
+            387.1,
+            306.5,
+            409.1
+          ],
+          "image_width": 640,
+          "image_height": 640
+        },
+        {
+          "class_name": "Person",
+          "confidence": 0.5463,
+          "bbox": [
+            566.2,
+            281.8,
+            594.9,
+            459.1
+          ],
+          "image_width": 640,
+          "image_height": 640
+        },
+        {
+          "class_name": "Person",
+          "confidence": 0.537,
+          "bbox": [
+            473.6,
+            286.1,
+            499.9,
+            441.4
+          ],
+          "image_width": 640,
+          "image_height": 640
+        },
+        {
+          "class_name": "Person",
+          "confidence": 0.4966,
+          "bbox": [
+            570.3,
+            282.1,
+            596.4,
+            389.0
+          ],
+          "image_width": 640,
+          "image_height": 640
+        },
+        {
+          "class_name": "Building",
+          "confidence": 0.3778,
+          "bbox": [
+            0.0,
+            71.5,
+            94.4,
+            375.9
+          ],
+          "image_width": 640,
+          "image_height": 640
+        }
+      ],
+      "alerts_spoken": [
+        {
+          "class_name": "Person",
+          "tier": "medium",
+          "image_region": "right",
+          "confidence": 0.5463,
+          "box_area_frac": 0.0124
+        },
+        {
+          "class_name": "Pedestrian crosswalk",
+          "tier": "low",
+          "image_region": "centre",
+          "confidence": 0.5934,
+          "box_area_frac": 0.0088
+        }
+      ],
+      "alerts_suppressed": [],
+      "message": "Person, right. Crosswalk, centre.",
+      "inference_ms": 152.3
+    },
+    {
+      "index": 6,
+      "image": "IMG_23764.jpg",
+      "start_s": 19.8,
+      "duration_s": 3.5,
+      "detections": [
+        {
+          "class_name": "Person",
+          "confidence": 0.7985,
+          "bbox": [
+            526.5,
+            285.3,
+            601.2,
+            479.9
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Person",
+          "confidence": 0.6928,
+          "bbox": [
+            382.9,
+            306.5,
+            443.3,
+            480.0
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Person",
+          "confidence": 0.6756,
+          "bbox": [
+            434.7,
+            306.7,
+            489.1,
+            480.0
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Person",
+          "confidence": 0.668,
+          "bbox": [
+            309.9,
+            341.7,
+            344.3,
+            451.1
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Person",
+          "confidence": 0.6647,
+          "bbox": [
+            276.4,
+            338.3,
+            312.1,
+            449.9
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Tree",
+          "confidence": 0.5713,
+          "bbox": [
+            176.1,
+            0.0,
+            639.9,
+            256.6
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Tree",
+          "confidence": 0.4412,
+          "bbox": [
+            52.0,
+            150.1,
+            246.2,
+            349.8
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Road",
+          "confidence": 0.4035,
+          "bbox": [
+            112.9,
+            404.4,
+            400.7,
+            479.9
+          ],
+          "image_width": 640,
+          "image_height": 480
+        }
+      ],
+      "alerts_spoken": [
+        {
+          "class_name": "Tree",
+          "tier": "medium",
+          "image_region": "centre",
+          "confidence": 0.5713,
+          "box_area_frac": 0.3874
+        },
+        {
+          "class_name": "Tree",
+          "tier": "medium",
+          "image_region": "left",
+          "confidence": 0.4412,
+          "box_area_frac": 0.1263
+        }
+      ],
+      "alerts_suppressed": [
+        {
+          "class_name": "Person",
+          "tier": "medium",
+          "image_region": "right",
+          "confidence": 0.7985,
+          "box_area_frac": 0.0473
+        },
+        {
+          "class_name": "Person",
+          "tier": "medium",
+          "image_region": "centre",
+          "confidence": 0.6928,
+          "box_area_frac": 0.0341
+        }
+      ],
+      "message": "Tree, centre. Tree, left.",
+      "inference_ms": 121.0
+    },
+    {
+      "index": 7,
+      "image": "IMG_20955.jpg",
+      "start_s": 23.3,
+      "duration_s": 3.2,
+      "detections": [
+        {
+          "class_name": "Stairs",
+          "confidence": 0.4347,
+          "bbox": [
+            29.7,
+            149.8,
+            640.0,
+            629.1
+          ],
+          "image_width": 640,
+          "image_height": 640
+        }
+      ],
+      "alerts_spoken": [
+        {
+          "class_name": "Stairs",
+          "tier": "high",
+          "image_region": "centre",
+          "confidence": 0.4347,
+          "box_area_frac": 0.7142
+        }
+      ],
+      "alerts_suppressed": [],
+      "message": "Caution. Stairs, centre.",
+      "inference_ms": 159.5
+    },
+    {
+      "index": 8,
+      "image": "IMG_20822.jpg",
+      "start_s": 26.5,
+      "duration_s": 3.2,
+      "detections": [
+        {
+          "class_name": "Manhole",
+          "confidence": 0.8823,
+          "bbox": [
+            209.9,
+            158.6,
+            561.2,
+            539.4
+          ],
+          "image_width": 640,
+          "image_height": 640
+        }
+      ],
+      "alerts_spoken": [
+        {
+          "class_name": "Manhole",
+          "tier": "high",
+          "image_region": "centre",
+          "confidence": 0.8823,
+          "box_area_frac": 0.3266
+        }
+      ],
+      "alerts_suppressed": [],
+      "message": "Caution. Manhole, centre.",
+      "inference_ms": 160.9
+    }
+  ]
+}

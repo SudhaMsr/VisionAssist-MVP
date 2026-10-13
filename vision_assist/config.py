@@ -52,6 +52,21 @@ def resolve_image_dir(explicit: str | os.PathLike | None = None) -> Path:
     )
 
 
+DEFAULT_IMAGE_LIST = REPO_ROOT / "configs" / "demo_images.txt"
+
+
+def read_image_list(list_file: str | os.PathLike, image_dir: Path) -> list[Path]:
+    """Resolve a list of file names (one per line, `#` comments allowed) in `image_dir`."""
+    names = [line.split("#", 1)[0].strip() for line in Path(list_file).read_text().splitlines()]
+    names = [n for n in names if n]
+    if not names:
+        raise ValueError(f"No image names in {list_file}")
+    missing = [n for n in names if not (image_dir / n).is_file()]
+    if missing:
+        raise FileNotFoundError(f"{len(missing)} listed images not found in {image_dir}: {missing[:3]}")
+    return [image_dir / n for n in names]
+
+
 def list_images(source: Path, limit: int | None = None) -> list[Path]:
     """Return a sorted, deterministic list of images from a file or directory."""
     if source.is_file():

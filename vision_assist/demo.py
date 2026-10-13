@@ -24,7 +24,7 @@ import cv2
 import numpy as np
 
 from . import __version__
-from .config import list_images, resolve_image_dir, resolve_model_path, resolve_output_dir
+from .config import list_images, read_image_list, resolve_image_dir, resolve_model_path, resolve_output_dir
 from .detector import Detector
 from .guidance import AlertScheduler, compose_message, prioritise
 from .speech import assemble_timeline, find_tts_engine, synthesize, wav_duration
@@ -255,6 +255,8 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--images", help="Image file or directory (default: $VISION_ASSIST_IMAGES or Kaggle ROD valid/images)")
     p.add_argument("--model", help="Checkpoint path (default: models/rod_yolov8n_50ep_best.pt)")
     p.add_argument("--out", help="Output directory (default: outputs/demo)")
+    p.add_argument("--image-list", help="Text file of image names inside --images, in playback order "
+                   "(e.g. configs/demo_images.txt); overrides --limit")
     p.add_argument("--limit", type=int, default=8, help="Max images, in sorted order (default 8)")
     p.add_argument("--conf", type=float, default=0.35)
     p.add_argument("--imgsz", type=int, default=640)
@@ -266,7 +268,11 @@ def main(argv: list[str] | None = None) -> int:
     args = p.parse_args(argv)
 
     try:
-        images = list_images(resolve_image_dir(args.images), limit=args.limit)
+        image_dir = resolve_image_dir(args.images)
+        if args.image_list:
+            images = read_image_list(args.image_list, image_dir)
+        else:
+            images = list_images(image_dir, limit=args.limit)
         summary = run_demo(
             images=images,
             model_path=resolve_model_path(args.model),

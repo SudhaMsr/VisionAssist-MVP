@@ -60,3 +60,22 @@ def test_probe_detects_audio_stream(tmp_path, fake_engine):
     synthesize("Car, left.", tmp_path / "a.wav", fake_engine)
     probe = probe_media(tmp_path / "a.wav", find_ffmpeg())
     assert probe["has_audio"] and not probe["has_video"]
+
+
+def test_read_image_list_keeps_order_and_ignores_comments(tmp_path):
+    from vision_assist.config import read_image_list
+
+    for name in ("b.jpg", "a.jpg"):
+        (tmp_path / name).write_bytes(b"x")
+    listing = tmp_path / "list.txt"
+    listing.write_text("# header\nb.jpg  # Car, Person\n\na.jpg\n")
+    assert [p.name for p in read_image_list(listing, tmp_path)] == ["b.jpg", "a.jpg"]
+
+
+def test_read_image_list_reports_missing_images(tmp_path):
+    from vision_assist.config import read_image_list
+
+    listing = tmp_path / "list.txt"
+    listing.write_text("missing.jpg\n")
+    with pytest.raises(FileNotFoundError, match="missing.jpg"):
+        read_image_list(listing, tmp_path)

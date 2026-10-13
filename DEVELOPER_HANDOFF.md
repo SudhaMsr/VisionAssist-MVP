@@ -18,5 +18,5 @@
 ## Status (2026-10-13)
 The V2 voice demo is now the `vision_assist` package plus a thin notebook runner.
 See README for setup, verified metrics, test results and limitations.
-`results/voice_demo/` is legacy output from an earlier ad-hoc cell and is not
-reproducible from current code; regenerate with `python -m vision_assist.demo`.
+`archive/results/voice_demo_legacy/` (formerly `results/voice_demo/`) is legacy output and is not
+reproducible from current code. The current demo is `results/demo/`.

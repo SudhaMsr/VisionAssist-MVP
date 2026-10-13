@@ -1,0 +1,7 @@
+   0.0s  IMG_20581.jpg: Caution. Motorcycle, left. Tree, centre.
+   4.9s  IMG_20582.jpg: Caution. Motorcycle, centre.
+   8.4s  IMG_20587.jpg: Caution. Car, right. Motorcycle, right.
+  13.2s  IMG_20589.jpg: Caution. Motorcycle, left.
+  16.6s  IMG_20590.jpg: (no alert)
+  18.6s  IMG_20595.jpg: Caution. Motorcycle, right.
+  22.0s  IMG_20597.jpg: Caution. Car, left. Motorcycle, left.

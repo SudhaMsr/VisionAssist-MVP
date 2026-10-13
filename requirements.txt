@@ -1,0 +1,8 @@
+# Inference + demo. Pinned to the Ultralytics version the V1 notebook trained with.
+ultralytics==8.4.175
+numpy
+PyYAML
+# Bundled ffmpeg binary, used if no system ffmpeg is on PATH.
+imageio-ffmpeg>=0.5
+pytest>=8
+# System dependency (not pip): espeak-ng  (apt-get install -y espeak-ng)

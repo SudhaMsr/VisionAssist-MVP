@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Generated demo output (regenerate with `python -m vision_assist.demo`)
+outputs/
+
+# Ultralytics runs / downloaded weights
+runs/
+yolov8n.pt
+yolo11n.pt
+
+# Datasets and secrets
+datasets/
+data/
+*.zip
+.env
+kaggle.json
+
+# Notebooks
+.ipynb_checkpoints/

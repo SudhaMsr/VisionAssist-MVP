@@ -1,0 +1,307 @@
+{
+  "vision_assist_version": "0.2.0",
+  "model": "rod_yolov8n_50ep_best.pt",
+  "settings": {
+    "conf": 0.35,
+    "imgsz": 640,
+    "max_alerts": 2,
+    "cooldown_s": 6.0,
+    "min_frame_s": 2.0,
+    "gap_s": 0.5,
+    "device": "auto"
+  },
+  "hardware": "cpu",
+  "image_count": 8,
+  "latency": {
+    "model_load_ms": 35.7,
+    "inference": {
+      "n": 8,
+      "mean_ms": 96.8,
+      "median_ms": 96.6,
+      "p95_ms": 100.7,
+      "max_ms": 100.7
+    },
+    "tts": {
+      "n": 4,
+      "mean_ms": 13.7,
+      "median_ms": 13.6,
+      "p95_ms": 13.9,
+      "max_ms": 13.9
+    },
+    "per_frame_detect_to_audio": {
+      "n": 8,
+      "mean_ms": 113.8,
+      "median_ms": 116.8,
+      "p95_ms": 126.3,
+      "max_ms": 126.3
+    }
+  },
+  "outputs": {
+    "audio": "vision_assist_demo.wav",
+    "audio_duration_s": 20.2,
+    "video": "vision_assist_demo.mp4",
+    "video_probe": {
+      "duration_s": 20.2,
+      "has_video": true,
+      "has_audio": true
+    }
+  },
+  "frames": [
+    {
+      "index": 1,
+      "image": "IMG_20816.jpg",
+      "start_s": 0.0,
+      "duration_s": 3.0,
+      "detections": [
+        {
+          "class_name": "Car",
+          "confidence": 0.8821,
+          "bbox": [
+            125.8,
+            139.9,
+            579.4,
+            414.8
+          ],
+          "image_width": 640,
+          "image_height": 640
+        }
+      ],
+      "alerts_spoken": [
+        {
+          "class_name": "Car",
+          "tier": "high",
+          "image_region": "centre",
+          "confidence": 0.8821,
+          "box_area_frac": 0.3044
+        }
+      ],
+      "alerts_suppressed": [],
+      "message": "Caution. Car, centre.",
+      "inference_ms": 97.3
+    },
+    {
+      "index": 2,
+      "image": "IMG_20817.jpg",
+      "start_s": 3.0,
+      "duration_s": 2.0,
+      "detections": [
+        {
+          "class_name": "Car",
+          "confidence": 0.8479,
+          "bbox": [
+            72.3,
+            114.3,
+            581.4,
+            582.0
+          ],
+          "image_width": 640,
+          "image_height": 640
+        }
+      ],
+      "alerts_spoken": [],
+      "alerts_suppressed": [
+        {
+          "class_name": "Car",
+          "tier": "high",
+          "image_region": "centre",
+          "confidence": 0.8479,
+          "box_area_frac": 0.5812
+        }
+      ],
+      "message": null,
+      "inference_ms": 96.6
+    },
+    {
+      "index": 3,
+      "image": "IMG_20818.jpg",
+      "start_s": 5.0,
+      "duration_s": 2.0,
+      "detections": [
+        {
+          "class_name": "Car",
+          "confidence": 0.8702,
+          "bbox": [
+            130.3,
+            170.1,
+            494.8,
+            504.1
+          ],
+          "image_width": 640,
+          "image_height": 640
+        }
+      ],
+      "alerts_spoken": [],
+      "alerts_suppressed": [
+        {
+          "class_name": "Car",
+          "tier": "high",
+          "image_region": "centre",
+          "confidence": 0.8702,
+          "box_area_frac": 0.2972
+        }
+      ],
+      "message": null,
+      "inference_ms": 92.3
+    },
+    {
+      "index": 4,
+      "image": "IMG_20819.jpg",
+      "start_s": 7.0,
+      "duration_s": 3.0,
+      "detections": [
+        {
+          "class_name": "Car",
+          "confidence": 0.8776,
+          "bbox": [
+            91.2,
+            104.4,
+            604.1,
+            637.6
+          ],
+          "image_width": 640,
+          "image_height": 640
+        }
+      ],
+      "alerts_spoken": [
+        {
+          "class_name": "Car",
+          "tier": "high",
+          "image_region": "centre",
+          "confidence": 0.8776,
+          "box_area_frac": 0.6676
+        }
+      ],
+      "alerts_suppressed": [],
+      "message": "Caution. Car, centre.",
+      "inference_ms": 96.3
+    },
+    {
+      "index": 5,
+      "image": "IMG_20820.jpg",
+      "start_s": 10.0,
+      "duration_s": 2.0,
+      "detections": [
+        {
+          "class_name": "Car",
+          "confidence": 0.5957,
+          "bbox": [
+            204.3,
+            140.6,
+            582.1,
+            482.3
+          ],
+          "image_width": 640,
+          "image_height": 640
+        }
+      ],
+      "alerts_spoken": [],
+      "alerts_suppressed": [
+        {
+          "class_name": "Car",
+          "tier": "high",
+          "image_region": "centre",
+          "confidence": 0.5957,
+          "box_area_frac": 0.3151
+        }
+      ],
+      "message": null,
+      "inference_ms": 96.5
+    },
+    {
+      "index": 6,
+      "image": "IMG_20821.jpg",
+      "start_s": 12.0,
+      "duration_s": 2.0,
+      "detections": [
+        {
+          "class_name": "Car",
+          "confidence": 0.8888,
+          "bbox": [
+            55.6,
+            43.0,
+            632.4,
+            605.8
+          ],
+          "image_width": 640,
+          "image_height": 640
+        }
+      ],
+      "alerts_spoken": [],
+      "alerts_suppressed": [
+        {
+          "class_name": "Car",
+          "tier": "high",
+          "image_region": "centre",
+          "confidence": 0.8888,
+          "box_area_frac": 0.7925
+        }
+      ],
+      "message": null,
+      "inference_ms": 100.1
+    },
+    {
+      "index": 7,
+      "image": "IMG_20822.jpg",
+      "start_s": 14.0,
+      "duration_s": 3.2,
+      "detections": [
+        {
+          "class_name": "Manhole",
+          "confidence": 0.8823,
+          "bbox": [
+            209.9,
+            158.6,
+            561.2,
+            539.4
+          ],
+          "image_width": 640,
+          "image_height": 640
+        }
+      ],
+      "alerts_spoken": [
+        {
+          "class_name": "Manhole",
+          "tier": "high",
+          "image_region": "centre",
+          "confidence": 0.8823,
+          "box_area_frac": 0.3266
+        }
+      ],
+      "alerts_suppressed": [],
+      "message": "Caution. Manhole, centre.",
+      "inference_ms": 100.7
+    },
+    {
+      "index": 8,
+      "image": "IMG_20823.jpg",
+      "start_s": 17.2,
+      "duration_s": 3.0,
+      "detections": [
+        {
+          "class_name": "Car",
+          "confidence": 0.8801,
+          "bbox": [
+            153.5,
+            143.1,
+            509.4,
+            504.5
+          ],
+          "image_width": 640,
+          "image_height": 640
+        }
+      ],
+      "alerts_spoken": [
+        {
+          "class_name": "Car",
+          "tier": "high",
+          "image_region": "centre",
+          "confidence": 0.8801,
+          "box_area_frac": 0.3141
+        }
+      ],
+      "alerts_suppressed": [],
+      "message": "Caution. Car, centre.",
+      "inference_ms": 94.8
+    }
+  ]
+}

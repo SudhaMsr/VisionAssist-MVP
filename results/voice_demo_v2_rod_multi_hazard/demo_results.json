@@ -1,0 +1,984 @@
+{
+  "vision_assist_version": "0.2.0",
+  "model": "rod_yolov8n_50ep_best.pt",
+  "settings": {
+    "conf": 0.35,
+    "imgsz": 640,
+    "max_alerts": 2,
+    "cooldown_s": 6.0,
+    "min_frame_s": 2.0,
+    "gap_s": 0.5,
+    "device": "cpu"
+  },
+  "hardware": "cpu",
+  "image_count": 7,
+  "latency": {
+    "model_load_ms": 32.3,
+    "inference": {
+      "n": 7,
+      "mean_ms": 56.5,
+      "median_ms": 52.8,
+      "p95_ms": 89.1,
+      "max_ms": 89.1
+    },
+    "tts": {
+      "n": 6,
+      "mean_ms": 10.4,
+      "median_ms": 10.6,
+      "p95_ms": 11.6,
+      "max_ms": 11.6
+    },
+    "per_frame_detect_to_audio": {
+      "n": 7,
+      "mean_ms": 71.8,
+      "median_ms": 64.3,
+      "p95_ms": 126.7,
+      "max_ms": 126.7
+    }
+  },
+  "outputs": {
+    "audio": "vision_assist_demo.wav",
+    "audio_duration_s": 26.8,
+    "video": "vision_assist_demo.mp4",
+    "video_probe": {
+      "duration_s": 26.8,
+      "has_video": true,
+      "has_audio": true
+    }
+  },
+  "frames": [
+    {
+      "index": 1,
+      "image": "IMG_20581.jpg",
+      "start_s": 0.0,
+      "duration_s": 4.9,
+      "detections": [
+        {
+          "class_name": "Road",
+          "confidence": 0.857,
+          "bbox": [
+            1.0,
+            355.7,
+            639.5,
+            479.9
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Tree",
+          "confidence": 0.7836,
+          "bbox": [
+            104.9,
+            0.0,
+            620.6,
+            203.4
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Motorcycle",
+          "confidence": 0.6882,
+          "bbox": [
+            0.0,
+            210.2,
+            148.5,
+            438.2
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Traffic sign",
+          "confidence": 0.6238,
+          "bbox": [
+            0.0,
+            220.3,
+            31.2,
+            448.9
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Person",
+          "confidence": 0.6071,
+          "bbox": [
+            193.1,
+            284.3,
+            213.8,
+            349.6
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Person",
+          "confidence": 0.5565,
+          "bbox": [
+            170.7,
+            283.3,
+            190.9,
+            349.0
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Traffic sign",
+          "confidence": 0.521,
+          "bbox": [
+            567.7,
+            299.3,
+            635.3,
+            412.5
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Person",
+          "confidence": 0.4873,
+          "bbox": [
+            148.5,
+            282.4,
+            170.4,
+            347.0
+          ],
+          "image_width": 640,
+          "image_height": 480
+        }
+      ],
+      "alerts_spoken": [
+        {
+          "class_name": "Motorcycle",
+          "tier": "high",
+          "image_region": "left",
+          "confidence": 0.6882,
+          "box_area_frac": 0.1102
+        },
+        {
+          "class_name": "Tree",
+          "tier": "medium",
+          "image_region": "centre",
+          "confidence": 0.7836,
+          "box_area_frac": 0.3414
+        }
+      ],
+      "alerts_suppressed": [
+        {
+          "class_name": "Person",
+          "tier": "medium",
+          "image_region": "left",
+          "confidence": 0.4873,
+          "box_area_frac": 0.0046
+        },
+        {
+          "class_name": "Traffic sign",
+          "tier": "low",
+          "image_region": "right",
+          "confidence": 0.521,
+          "box_area_frac": 0.0249
+        },
+        {
+          "class_name": "Traffic sign",
+          "tier": "low",
+          "image_region": "left",
+          "confidence": 0.6238,
+          "box_area_frac": 0.0232
+        }
+      ],
+      "message": "Caution. Motorcycle, left. Tree, centre.",
+      "inference_ms": 89.1
+    },
+    {
+      "index": 2,
+      "image": "IMG_20582.jpg",
+      "start_s": 4.9,
+      "duration_s": 3.5,
+      "detections": [
+        {
+          "class_name": "Motorcycle",
+          "confidence": 0.6613,
+          "bbox": [
+            191.8,
+            237.3,
+            263.5,
+            430.5
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Tree",
+          "confidence": 0.569,
+          "bbox": [
+            0.1,
+            0.0,
+            267.1,
+            180.2
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Tree",
+          "confidence": 0.5338,
+          "bbox": [
+            498.3,
+            0.0,
+            639.9,
+            206.5
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Road",
+          "confidence": 0.4902,
+          "bbox": [
+            249.5,
+            346.2,
+            639.8,
+            479.8
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Motorcycle",
+          "confidence": 0.4547,
+          "bbox": [
+            0.0,
+            210.9,
+            480.3,
+            449.3
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Motorcycle",
+          "confidence": 0.4464,
+          "bbox": [
+            249.7,
+            271.4,
+            334.7,
+            411.8
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Motorcycle",
+          "confidence": 0.4223,
+          "bbox": [
+            0.0,
+            189.0,
+            114.0,
+            479.6
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Tree",
+          "confidence": 0.3915,
+          "bbox": [
+            347.9,
+            52.3,
+            555.4,
+            265.7
+          ],
+          "image_width": 640,
+          "image_height": 480
+        }
+      ],
+      "alerts_spoken": [
+        {
+          "class_name": "Motorcycle",
+          "tier": "high",
+          "image_region": "centre",
+          "confidence": 0.4547,
+          "box_area_frac": 0.3727
+        }
+      ],
+      "alerts_suppressed": [
+        {
+          "class_name": "Motorcycle",
+          "tier": "high",
+          "image_region": "left",
+          "confidence": 0.4223,
+          "box_area_frac": 0.1078
+        },
+        {
+          "class_name": "Tree",
+          "tier": "medium",
+          "image_region": "left",
+          "confidence": 0.569,
+          "box_area_frac": 0.1567
+        },
+        {
+          "class_name": "Tree",
+          "tier": "medium",
+          "image_region": "right",
+          "confidence": 0.3915,
+          "box_area_frac": 0.1441
+        }
+      ],
+      "message": "Caution. Motorcycle, centre.",
+      "inference_ms": 54.8
+    },
+    {
+      "index": 3,
+      "image": "IMG_20587.jpg",
+      "start_s": 8.4,
+      "duration_s": 4.8,
+      "detections": [
+        {
+          "class_name": "Motorcycle",
+          "confidence": 0.8641,
+          "bbox": [
+            319.0,
+            0.2,
+            640.0,
+            411.6
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Car",
+          "confidence": 0.685,
+          "bbox": [
+            84.2,
+            219.4,
+            141.9,
+            274.6
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Road",
+          "confidence": 0.6521,
+          "bbox": [
+            5.7,
+            285.6,
+            629.4,
+            480.0
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Motorcycle",
+          "confidence": 0.3986,
+          "bbox": [
+            211.4,
+            226.4,
+            339.8,
+            328.5
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Building",
+          "confidence": 0.3697,
+          "bbox": [
+            0.0,
+            55.0,
+            268.8,
+            207.1
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Car",
+          "confidence": 0.3547,
+          "bbox": [
+            319.9,
+            0.0,
+            640.0,
+            421.4
+          ],
+          "image_width": 640,
+          "image_height": 480
+        }
+      ],
+      "alerts_spoken": [
+        {
+          "class_name": "Car",
+          "tier": "high",
+          "image_region": "right",
+          "confidence": 0.3547,
+          "box_area_frac": 0.4391
+        },
+        {
+          "class_name": "Motorcycle",
+          "tier": "high",
+          "image_region": "right",
+          "confidence": 0.8641,
+          "box_area_frac": 0.4298
+        }
+      ],
+      "alerts_suppressed": [
+        {
+          "class_name": "Motorcycle",
+          "tier": "high",
+          "image_region": "centre",
+          "confidence": 0.3986,
+          "box_area_frac": 0.0427
+        },
+        {
+          "class_name": "Car",
+          "tier": "high",
+          "image_region": "left",
+          "confidence": 0.685,
+          "box_area_frac": 0.0104
+        }
+      ],
+      "message": "Caution. Car, right. Motorcycle, right.",
+      "inference_ms": 51.8
+    },
+    {
+      "index": 4,
+      "image": "IMG_20589.jpg",
+      "start_s": 13.2,
+      "duration_s": 3.4,
+      "detections": [
+        {
+          "class_name": "Car",
+          "confidence": 0.7538,
+          "bbox": [
+            458.6,
+            0.0,
+            640.0,
+            422.8
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Tree",
+          "confidence": 0.7268,
+          "bbox": [
+            235.3,
+            72.2,
+            360.4,
+            202.0
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Road",
+          "confidence": 0.6883,
+          "bbox": [
+            0.0,
+            198.5,
+            553.6,
+            479.8
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Motorcycle",
+          "confidence": 0.5305,
+          "bbox": [
+            46.0,
+            100.3,
+            117.9,
+            193.8
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Tree",
+          "confidence": 0.4658,
+          "bbox": [
+            351.3,
+            87.6,
+            422.6,
+            202.5
+          ],
+          "image_width": 640,
+          "image_height": 480
+        }
+      ],
+      "alerts_spoken": [
+        {
+          "class_name": "Motorcycle",
+          "tier": "high",
+          "image_region": "left",
+          "confidence": 0.5305,
+          "box_area_frac": 0.0219
+        }
+      ],
+      "alerts_suppressed": [
+        {
+          "class_name": "Car",
+          "tier": "high",
+          "image_region": "right",
+          "confidence": 0.7538,
+          "box_area_frac": 0.2497
+        },
+        {
+          "class_name": "Tree",
+          "tier": "medium",
+          "image_region": "centre",
+          "confidence": 0.7268,
+          "box_area_frac": 0.0529
+        }
+      ],
+      "message": "Caution. Motorcycle, left.",
+      "inference_ms": 50.2
+    },
+    {
+      "index": 5,
+      "image": "IMG_20590.jpg",
+      "start_s": 16.6,
+      "duration_s": 2.0,
+      "detections": [
+        {
+          "class_name": "Tree",
+          "confidence": 0.8469,
+          "bbox": [
+            225.2,
+            74.8,
+            416.9,
+            260.6
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Road",
+          "confidence": 0.8219,
+          "bbox": [
+            1.2,
+            260.4,
+            640.0,
+            479.9
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Tree",
+          "confidence": 0.6606,
+          "bbox": [
+            576.8,
+            94.2,
+            640.0,
+            261.4
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Motorcycle",
+          "confidence": 0.5757,
+          "bbox": [
+            0.0,
+            106.9,
+            47.2,
+            253.5
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Tree",
+          "confidence": 0.547,
+          "bbox": [
+            411.0,
+            85.7,
+            523.5,
+            268.4
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Building",
+          "confidence": 0.5307,
+          "bbox": [
+            1.6,
+            0.3,
+            524.8,
+            134.1
+          ],
+          "image_width": 640,
+          "image_height": 480
+        }
+      ],
+      "alerts_spoken": [],
+      "alerts_suppressed": [
+        {
+          "class_name": "Motorcycle",
+          "tier": "high",
+          "image_region": "left",
+          "confidence": 0.5757,
+          "box_area_frac": 0.0225
+        },
+        {
+          "class_name": "Tree",
+          "tier": "medium",
+          "image_region": "centre",
+          "confidence": 0.8469,
+          "box_area_frac": 0.116
+        },
+        {
+          "class_name": "Tree",
+          "tier": "medium",
+          "image_region": "right",
+          "confidence": 0.547,
+          "box_area_frac": 0.0669
+        }
+      ],
+      "message": null,
+      "inference_ms": 52.8
+    },
+    {
+      "index": 6,
+      "image": "IMG_20595.jpg",
+      "start_s": 18.6,
+      "duration_s": 3.4,
+      "detections": [
+        {
+          "class_name": "Tree",
+          "confidence": 0.8395,
+          "bbox": [
+            315.8,
+            0.0,
+            507.8,
+            294.0
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Person",
+          "confidence": 0.8041,
+          "bbox": [
+            203.3,
+            270.1,
+            273.2,
+            448.3
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Motorcycle",
+          "confidence": 0.7925,
+          "bbox": [
+            72.9,
+            293.5,
+            211.1,
+            455.4
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Road",
+          "confidence": 0.6919,
+          "bbox": [
+            15.7,
+            411.7,
+            634.0,
+            479.9
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Motorcycle",
+          "confidence": 0.6201,
+          "bbox": [
+            403.7,
+            258.1,
+            639.9,
+            455.2
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Tree",
+          "confidence": 0.6196,
+          "bbox": [
+            0.0,
+            0.0,
+            186.1,
+            268.5
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Electrical Pole",
+          "confidence": 0.6155,
+          "bbox": [
+            223.4,
+            67.6,
+            289.9,
+            437.5
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Motorcycle",
+          "confidence": 0.5671,
+          "bbox": [
+            0.0,
+            278.5,
+            51.8,
+            480.0
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Building",
+          "confidence": 0.4757,
+          "bbox": [
+            477.3,
+            57.6,
+            639.8,
+            197.5
+          ],
+          "image_width": 640,
+          "image_height": 480
+        }
+      ],
+      "alerts_spoken": [
+        {
+          "class_name": "Motorcycle",
+          "tier": "high",
+          "image_region": "right",
+          "confidence": 0.6201,
+          "box_area_frac": 0.1516
+        }
+      ],
+      "alerts_suppressed": [
+        {
+          "class_name": "Motorcycle",
+          "tier": "high",
+          "image_region": "left",
+          "confidence": 0.7925,
+          "box_area_frac": 0.0728
+        },
+        {
+          "class_name": "Tree",
+          "tier": "medium",
+          "image_region": "centre",
+          "confidence": 0.8395,
+          "box_area_frac": 0.1837
+        },
+        {
+          "class_name": "Tree",
+          "tier": "medium",
+          "image_region": "left",
+          "confidence": 0.6196,
+          "box_area_frac": 0.1626
+        },
+        {
+          "class_name": "Electrical Pole",
+          "tier": "medium",
+          "image_region": "centre",
+          "confidence": 0.6155,
+          "box_area_frac": 0.0801
+        },
+        {
+          "class_name": "Person",
+          "tier": "medium",
+          "image_region": "centre",
+          "confidence": 0.8041,
+          "box_area_frac": 0.0405
+        }
+      ],
+      "message": "Caution. Motorcycle, right.",
+      "inference_ms": 56.5
+    },
+    {
+      "index": 7,
+      "image": "IMG_20597.jpg",
+      "start_s": 22.0,
+      "duration_s": 4.8,
+      "detections": [
+        {
+          "class_name": "Tree",
+          "confidence": 0.8106,
+          "bbox": [
+            220.6,
+            0.0,
+            351.1,
+            244.3
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Car",
+          "confidence": 0.7935,
+          "bbox": [
+            0.2,
+            73.6,
+            108.4,
+            401.3
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Road",
+          "confidence": 0.7188,
+          "bbox": [
+            12.4,
+            307.0,
+            633.8,
+            479.9
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Motorcycle",
+          "confidence": 0.6029,
+          "bbox": [
+            248.2,
+            179.1,
+            640.0,
+            375.2
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Motorcycle",
+          "confidence": 0.5838,
+          "bbox": [
+            108.1,
+            237.8,
+            174.8,
+            315.2
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Tree",
+          "confidence": 0.5528,
+          "bbox": [
+            0.2,
+            0.2,
+            132.9,
+            82.3
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Tree",
+          "confidence": 0.5525,
+          "bbox": [
+            353.6,
+            0.9,
+            640.0,
+            155.3
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Motorcycle",
+          "confidence": 0.5125,
+          "bbox": [
+            491.5,
+            151.2,
+            640.0,
+            381.2
+          ],
+          "image_width": 640,
+          "image_height": 480
+        },
+        {
+          "class_name": "Electrical Pole",
+          "confidence": 0.4746,
+          "bbox": [
+            178.0,
+            85.2,
+            200.6,
+            318.0
+          ],
+          "image_width": 640,
+          "image_height": 480
+        }
+      ],
+      "alerts_spoken": [
+        {
+          "class_name": "Car",
+          "tier": "high",
+          "image_region": "left",
+          "confidence": 0.7935,
+          "box_area_frac": 0.1154
+        },
+        {
+          "class_name": "Motorcycle",
+          "tier": "high",
+          "image_region": "left",
+          "confidence": 0.5838,
+          "box_area_frac": 0.0168
+        }
+      ],
+      "alerts_suppressed": [
+        {
+          "class_name": "Motorcycle",
+          "tier": "high",
+          "image_region": "right",
+          "confidence": 0.6029,
+          "box_area_frac": 0.2502
+        },
+        {
+          "class_name": "Tree",
+          "tier": "medium",
+          "image_region": "right",
+          "confidence": 0.5525,
+          "box_area_frac": 0.144
+        },
+        {
+          "class_name": "Tree",
+          "tier": "medium",
+          "image_region": "centre",
+          "confidence": 0.8106,
+          "box_area_frac": 0.1038
+        },
+        {
+          "class_name": "Tree",
+          "tier": "medium",
+          "image_region": "left",
+          "confidence": 0.5528,
+          "box_area_frac": 0.0355
+        },
+        {
+          "class_name": "Electrical Pole",
+          "tier": "medium",
+          "image_region": "left",
+          "confidence": 0.4746,
+          "box_area_frac": 0.0171
+        }
+      ],
+      "message": "Caution. Car, left. Motorcycle, left.",
+      "inference_ms": 40.3
+    }
+  ]
+}

@@ -153,13 +153,22 @@ class AlertScheduler:
             raise ValueError("cooldown_s must be >= 0")
 
     def select(self, alerts: list[Alert], now_s: float) -> tuple[list[Alert], list[Alert]]:
-        """Return (to_speak, suppressed). `alerts` must already be prioritised."""
+        """Return (to_speak, suppressed). `alerts` must already be prioritised.
+
+        A lower-tier alert never takes the place of a higher-tier hazard that is
+        only held back as a repeat: hearing "tree" alone while a motorcycle is
+        still in view would misrepresent what matters most.
+        """
         to_speak, suppressed = [], []
+        repeat_held_tier = None
         for alert in alerts:
             last = self._last_spoken.get(alert.key)
             recently_spoken = last is not None and now_s - last < self.cooldown_s
-            if recently_spoken or len(to_speak) >= self.max_alerts:
+            outranked = repeat_held_tier is not None and alert.tier > repeat_held_tier
+            if recently_spoken or outranked or len(to_speak) >= self.max_alerts:
                 suppressed.append(alert)
+                if recently_spoken and repeat_held_tier is None:
+                    repeat_held_tier = alert.tier
             else:
                 to_speak.append(alert)
         for alert in to_speak:

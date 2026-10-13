@@ -1,0 +1,8 @@
+   0.0s  IMG_20816.jpg: Caution. Car, centre.
+   3.0s  IMG_20817.jpg: (no alert)
+   5.0s  IMG_20818.jpg: (no alert)
+   7.0s  IMG_20819.jpg: Caution. Car, centre.
+  10.0s  IMG_20820.jpg: (no alert)
+  12.0s  IMG_20821.jpg: (no alert)
+  14.0s  IMG_20822.jpg: Caution. Manhole, centre.
+  17.2s  IMG_20823.jpg: Caution. Car, centre.

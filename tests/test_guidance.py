@@ -88,11 +88,24 @@ def test_scheduler_same_class_new_region_is_not_suppressed():
     assert spoken[0].region == "right"
 
 
-def test_suppressed_repeat_frees_slot_for_next_alert():
+def test_suppressed_repeat_frees_slot_for_same_tier_alert():
     s = AlertScheduler(max_alerts=1, cooldown_s=5)
     s.select(prioritise([det("Car")]), now_s=0)
-    spoken, _ = s.select(prioritise([det("Car"), det("Bench", 500, 590)]), now_s=1)
-    assert [a.class_name for a in spoken] == ["Bench"]
+    spoken, _ = s.select(prioritise([det("Car"), det("Stairs", 500, 590)]), now_s=1)
+    assert [a.class_name for a in spoken] == ["Stairs"]
+
+
+def test_lower_tier_does_not_replace_repeat_held_hazard():
+    # Observed on ROD test image IMG_20590: motorcycle held back as a repeat,
+    # and "Tree, right." was spoken alone in its place.
+    s = AlertScheduler(max_alerts=2, cooldown_s=6)
+    s.select(prioritise([det("Motorcycle", 0, 50)]), now_s=0)
+    spoken, suppressed = s.select(prioritise([det("Motorcycle", 0, 50), det("Tree", 500, 590)]), now_s=4.9)
+    assert spoken == []
+    assert {a.class_name for a in suppressed} == {"Motorcycle", "Tree"}
+    # Once the cooldown expires the hazard is announced again, highest tier first.
+    spoken, _ = s.select(prioritise([det("Motorcycle", 0, 50), det("Tree", 500, 590)]), now_s=6.0)
+    assert [a.class_name for a in spoken] == ["Motorcycle", "Tree"]
 
 
 @pytest.mark.parametrize("kwargs", [{"max_alerts": 0}, {"cooldown_s": -1}])

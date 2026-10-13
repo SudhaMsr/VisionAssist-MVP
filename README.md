@@ -31,6 +31,7 @@ images ──▶ detector.py ──▶ guidance.py ─────────�
 - **Low tier:** crosswalk, traffic sign. **Ignored:** road, building (present in almost every frame).
 - One alert per (class, image third). Order is tier first, then larger box, then confidence. At most **2** alerts are spoken per frame.
 - The same (class, image third) is not repeated within **6 s**. A hazard that persists is re-announced after the cooldown.
+- A lower-tier alert never takes the place of a higher-tier hazard that is being held back as a repeat. Without this rule, "Tree, right." was spoken alone while a motorcycle was in view (ROD test image IMG_20590).
 - If nothing is detected, nothing is spoken. The system **never says "clear"**.
 - "left/centre/right" is the third of the *image* that the box centre falls in. It is not a
   direction and assumes nothing about where the camera points. Box size is used only for
@@ -38,35 +39,51 @@ images ──▶ detector.py ──▶ guidance.py ─────────�
 
 ## Verified results
 
-### Detector: validation split (recorded, not re-run in this PR)
-From the executed training notebook `notebooks/vision-assist-v1.ipynb` and
-`results/rod_yolov8n_50ep/metrics.json`. YOLOv8n at 640 px, 50 epochs, seed 42, ROD
-validation split of 3,511 images and 5,572 instances.
+### Detector accuracy on ROD
+YOLOv8n at 640 px, 50 epochs, seed 42. Validation numbers come from the executed training
+notebook (`results/rod_yolov8n_50ep/metrics.json`). Test numbers were measured on 2026-10-13 in
+a Kaggle run of `scripts/evaluate_checkpoint.py`, using the same label preparation as training
+(1,957 boxes and 415 polygons converted, 0 skipped). They are saved in
+`results/rod_yolov8n_50ep_test/metrics_test.json`.
 
-| Metric | Value |
-|---|---|
-| mAP50 | **0.907** |
-| mAP50-95 | **0.726** |
-| Precision | 0.874 |
-| Recall | 0.841 |
+| Metric | Validation (3,511 images) | **Test (1,629 images)** |
+|---|---|---|
+| mAP50 | 0.907 | **0.913** |
+| mAP50-95 | 0.726 | **0.746** |
+| Precision | 0.874 | 0.902 |
+| Recall | 0.841 | 0.845 |
 
-Selected high-tier classes (mAP50): stairs 0.943, manhole 0.971, car 0.888, bus 0.921,
-motorcycle 0.794. Person: 0.847.
+Test mAP50 for the high-tier classes: stairs 0.888, manhole 0.950, car 0.896, bus 0.881,
+motorcycle 0.880, truck 0.885, bike 0.963. Person scores 0.873. The weakest classes are road
+(0.718, which is ignored by the alert rules) and dustbin (0.781). Test and validation agree,
+so there is no evidence on ROD that retraining is needed.
 
-**Not yet measured:** test-split metrics for this checkpoint. The earlier figures in this
-README (mAP50 0.6746) were from a one-epoch smoke run (`models/rod_baseline_smoke_best.pt`)
-and are superseded.
+Class names were checked: the dataset's own `data.yaml`, the checkpoint and
+`configs/rod_detection.yaml` list the same 25 classes in the same order.
+The old README figure (mAP50 0.6746) came from a one-epoch smoke run
+(`models/rod_baseline_smoke_best.pt`) and is superseded.
 
 ### Pipeline: tests and latency (run on 2026-10-13)
-- `pytest`: **42 passed**, 0 failed, 0 skipped. Run on Linux (WSL2) with CPU-only PyTorch,
+- `pytest`: **43 passed**, 0 failed, 0 skipped. Run on Linux (WSL2) with CPU-only PyTorch,
   Python 3.12, ultralytics 8.4.175, espeak-ng 1.52, and ffmpeg from `imageio-ffmpeg`.
 - CPU inference at 640 px, median of 10 runs on `bus.jpg`: **~140 ms**. The demo run reports
   ~180 ms mean over 2 frames, ~15–22 ms per TTS clip and ~235 ms from detection to audio file
   per frame. These numbers are from one laptop CPU, are not a real-time claim, and include no
   camera capture or audio playback.
-- `notebooks/Vision_Assist_V2_Voice_Demo.ipynb` was executed top to bottom locally with
-  nbconvert and produced no errors. Its Kaggle-specific branches (clone into `/kaggle/working`,
-  apt install, ROD path auto-detection) have **not** been executed yet.
+- `notebooks/Vision_Assist_V2_Voice_Demo.ipynb` was **executed on Kaggle** on 2026-10-13
+  (CPU, ROD dataset attached, `BRANCH` set to the feature branch). It ran with no errors and
+  all tests passed on Kaggle. It processed the first 8 ROD validation images
+  (IMG_20816–20823) and produced a 20.2 s MP4 (H.264 + AAC, decodes with no errors). Speech is
+  present in exactly the 4 slots that have an alert and silent elsewhere. The repeat cooldown
+  suppressed "car, centre" on frames 2–3 and 5–6. Inference on Kaggle CPU averaged ~97 ms per
+  image. A record is saved in `results/voice_demo_v2_kaggle/` (transcript, per-frame JSON, MP4,
+  one frame). These 8 images each contain a single object, so this run does not exercise
+  ranking between several hazards.
+- **Multi-hazard check on real ROD test images:** the demo was run locally on the 7 ROD test
+  images whose ground truth has 3 or more alert-worthy classes, including a high-tier one
+  (IMG_20581–20597). Every message names high-tier hazards first. This run exposed the
+  tier-replacement flaw described in the alert rules, which is now fixed and covered by a
+  test. The record is in `results/voice_demo_v2_rod_multi_hazard/`.
 
 ## Quick start
 
@@ -110,9 +127,11 @@ for thresholds, alert count and cooldown.
   vehicles. That is the case that matters most. The rule engine cannot recover a missed detection.
 - Still images only. No camera capture, tracking, or temporal smoothing.
 - No distance, depth, direction or path-clearance reasoning.
-- The hazard tiers are hand-written heuristics. They have not been validated with users.
-- Test-split accuracy has not been measured for the 50-epoch checkpoint. Performance outside
-  ROD-like imagery is unknown.
+- The hazard tiers are hand-written heuristics based only on the class. They have not been
+  validated with users. A parked motorcycle outranks a person walking toward the camera
+  (seen in IMG_20595), because the system cannot tell moving objects from stationary ones.
+- Accuracy has been measured only on ROD (validation and test). Performance on other imagery,
+  such as a phone camera at walking height, is unknown, as the `bus.jpg` miss shows.
 - The checkpoint's class names include a dataset typo (`Teraffic Barrel`). It is kept as-is so
   the labels match the weights, and it is spoken as "traffic barrel".
 
@@ -120,6 +139,7 @@ for thresholds, alert count and cooldown.
 ```
 vision_assist/        reusable package (detector, guidance, speech, demo CLI)
 tests/                pytest suite (fake TTS engine + real-model smoke tests)
+scripts/evaluate_checkpoint.py  test/valid-split evaluation (same label prep as training)
 notebooks/
   vision-assist-v1.ipynb              executed training + validation run (source of metrics)
   vision-assist-v1 (3).ipynb          exploratory scratch copy (mostly unexecuted; kept for history)
@@ -127,6 +147,9 @@ notebooks/
 models/               rod_yolov8n_50ep_best.pt (used), rod_baseline_smoke_best.pt (1-epoch smoke)
 results/
   rod_yolov8n_50ep/   validation metrics, curves, confusion matrices
+  rod_yolov8n_50ep_test/  test-split metrics (Kaggle run, 2026-10-13)
+  voice_demo_v2_kaggle/   verified demo output from the Kaggle notebook run
+  voice_demo_v2_rod_multi_hazard/  transcript + JSON from the multi-hazard ROD test-image run
   voice_demo/         LEGACY output of an earlier ad-hoc notebook cell (pre-rule-engine);
                       not reproducible from current code
 configs/rod_detection.yaml  class names + dataset layout used for training (Kaggle paths;

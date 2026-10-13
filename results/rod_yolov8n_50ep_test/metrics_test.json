@@ -1,0 +1,118 @@
+{
+  "model": "rod_yolov8n_50ep_best.pt",
+  "split": "test",
+  "label_preparation": {
+    "images": 1629,
+    "bbox": 1957,
+    "polygon": 415,
+    "skipped": 0
+  },
+  "images": 1629,
+  "mAP50": 0.9134,
+  "mAP50_95": 0.7455,
+  "precision": 0.902,
+  "recall": 0.845,
+  "per_class": {
+    "Bike": {
+      "mAP50": 0.9629,
+      "mAP50_95": 0.8737
+    },
+    "Building": {
+      "mAP50": 0.9351,
+      "mAP50_95": 0.8181
+    },
+    "Car": {
+      "mAP50": 0.8959,
+      "mAP50_95": 0.6515
+    },
+    "Person": {
+      "mAP50": 0.8733,
+      "mAP50_95": 0.6006
+    },
+    "Stairs": {
+      "mAP50": 0.8884,
+      "mAP50_95": 0.6889
+    },
+    "Traffic sign": {
+      "mAP50": 0.9132,
+      "mAP50_95": 0.6781
+    },
+    "Electrical Pole": {
+      "mAP50": 0.9273,
+      "mAP50_95": 0.6785
+    },
+    "Road": {
+      "mAP50": 0.7183,
+      "mAP50_95": 0.5055
+    },
+    "Motorcycle": {
+      "mAP50": 0.8802,
+      "mAP50_95": 0.6059
+    },
+    "Dustbin": {
+      "mAP50": 0.7805,
+      "mAP50_95": 0.5921
+    },
+    "Dog": {
+      "mAP50": 0.9681,
+      "mAP50_95": 0.8873
+    },
+    "Manhole": {
+      "mAP50": 0.9495,
+      "mAP50_95": 0.8604
+    },
+    "Tree": {
+      "mAP50": 0.892,
+      "mAP50_95": 0.6555
+    },
+    "Guard rail": {
+      "mAP50": 0.9454,
+      "mAP50_95": 0.7164
+    },
+    "Pedestrian crosswalk": {
+      "mAP50": 0.8663,
+      "mAP50_95": 0.7041
+    },
+    "Truck": {
+      "mAP50": 0.8854,
+      "mAP50_95": 0.6695
+    },
+    "Bus": {
+      "mAP50": 0.8809,
+      "mAP50_95": 0.6735
+    },
+    "Bench": {
+      "mAP50": 0.9467,
+      "mAP50_95": 0.8205
+    },
+    "Traffic Cone": {
+      "mAP50": 0.9277,
+      "mAP50_95": 0.7117
+    },
+    "Fire hydrant": {
+      "mAP50": 0.995,
+      "mAP50_95": 0.9651
+    },
+    "Teraffic Barrel": {
+      "mAP50": 0.995,
+      "mAP50_95": 0.995
+    },
+    "Plant Pot": {
+      "mAP50": 0.9575,
+      "mAP50_95": 0.8109
+    },
+    "Electrical Box": {
+      "mAP50": 0.9872,
+      "mAP50_95": 0.9142
+    },
+    "Chair": {
+      "mAP50": 0.9614,
+      "mAP50_95": 0.8066
+    },
+    "Bicycle Rack": {
+      "mAP50": 0.9026,
+      "mAP50_95": 0.7544
+    }
+  },
+  "eval_seconds": 223.2
+}

@@ -1,0 +1,8 @@
+IMG_20816.jpg: Car (0.88)
+IMG_20817.jpg: Car (0.85)
+IMG_20818.jpg: Car (0.87)
+IMG_20819.jpg: Car (0.88)
+IMG_20820.jpg: Car (0.60)
+IMG_20821.jpg: Car (0.89)
+IMG_20822.jpg: Manhole (0.88)
+IMG_20823.jpg: Car (0.88)

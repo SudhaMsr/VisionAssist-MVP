@@ -15,8 +15,8 @@
 - The current demo is based on sample images, not a verified live-camera safety system.
 - Review the README and notebook paths before further development.
 
-## Next steps
-1. Run the V2 notebook with the existing checkpoint.
-2. Generate and verify the annotated video and speech audio.
-3. Save generated outputs under `results/voice_demo/`.
-4. Update the project README with demo instructions and limitations.
+## Status (2026-10-13)
+The V2 voice demo is now the `vision_assist` package plus a thin notebook runner.
+See README for setup, verified metrics, test results and limitations.
+`results/voice_demo/` is legacy output from an earlier ad-hoc cell and is not
+reproducible from current code; regenerate with `python -m vision_assist.demo`.

@@ -20,3 +20,9 @@ The V2 voice demo is now the `vision_assist` package plus a thin notebook runner
 See README for setup, verified metrics, test results and limitations.
 `archive/results/voice_demo_legacy/` (formerly `results/voice_demo/`) is legacy output and is not
 reproducible from current code. The current demo is `results/demo/`.
+
+## Recovery (2026-10-14)
+A recovered ZIP contained the checkpoint and 21 demo files. The checkpoint was byte-identical to
+`models/rod_yolov8n_50ep_best.pt`, so it was not copied. The demo files are legacy-style output.
+13 of them are now in `archive/results/voice_demo_v2_recovered/`. The other 8 were frames
+identical to the existing `voice_demo_legacy/` frames. Its MP4 cuts off at 16 s (see `archive/README.md`).

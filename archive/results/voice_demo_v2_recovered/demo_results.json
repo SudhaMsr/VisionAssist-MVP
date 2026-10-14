@@ -1,0 +1,48 @@
+{
+  "version": "V2",
+  "model": "best.pt",
+  "confidence_threshold": 0.35,
+  "image_count": 8,
+  "results": [
+    {
+      "image": "IMG_20816.jpg",
+      "detected_classes": "Car",
+      "spoken_alert": "Caution. Car detected."
+    },
+    {
+      "image": "IMG_20817.jpg",
+      "detected_classes": "Car",
+      "spoken_alert": "Caution. Car detected."
+    },
+    {
+      "image": "IMG_20818.jpg",
+      "detected_classes": "Car",
+      "spoken_alert": "Caution. Car detected."
+    },
+    {
+      "image": "IMG_20819.jpg",
+      "detected_classes": "Car",
+      "spoken_alert": "Caution. Car detected."
+    },
+    {
+      "image": "IMG_20820.jpg",
+      "detected_classes": "Car",
+      "spoken_alert": "Caution. Car detected."
+    },
+    {
+      "image": "IMG_20821.jpg",
+      "detected_classes": "Car",
+      "spoken_alert": "Caution. Car detected."
+    },
+    {
+      "image": "IMG_20822.jpg",
+      "detected_classes": "Manhole",
+      "spoken_alert": "Caution. Manhole detected."
+    },
+    {
+      "image": "IMG_20823.jpg",
+      "detected_classes": "Car",
+      "spoken_alert": "Caution. Car detected."
+    }
+  ]
+}

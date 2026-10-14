@@ -153,6 +153,13 @@ for thresholds, alert count and cooldown.
 - **Local runs:** WSL2 Linux, Python 3.12, CPU-only PyTorch, ultralytics 8.4.175, espeak-ng 1.52.
   Latency figures come from single CPUs, are not real-time claims, and exclude camera capture and
   audio playback.
+- **Checkpoint:** `models/rod_yolov8n_50ep_best.pt` (6.5 MB, committed directly, no Git LFS needed;
+  SHA-256 `6f5647e9…968c8a`). It is the default for `--model`. A copy recovered on 2026-10-14 was
+  byte-identical to it.
+- **Recovered legacy export (2026-10-14):** `archive/results/voice_demo_v2_recovered/` is an older
+  export that uses the pre-`vision_assist` wording ("Caution. Car detected."). Its MP4 is cut off
+  at 16 s and its audio drifts out of step with the frames, so the last alerts are never heard.
+  It is kept for provenance only. See `archive/README.md`. The current demo is `results/demo/`.
 - The old README figure (mAP50 0.6746) came from a one-epoch smoke run
   (`models/rod_baseline_smoke_best.pt`) and is superseded.
 
@@ -176,7 +183,7 @@ results/
   rod_yolov8n_50ep_test/           test-split metrics
   voice_demo_v2_kaggle/            earlier Kaggle run (first 8 validation images)
   voice_demo_v2_rod_multi_hazard/  multi-hazard test-image check
-archive/              superseded scratch notebook and legacy demo (see archive/README.md)
+archive/              superseded scratch notebook, legacy demo and recovered legacy export (see archive/README.md)
 ```
 
 Dataset images are not included. ROD is obtained separately from Kaggle.

@@ -157,6 +157,18 @@ streamlit run app.py
 Each analysis is written to a new folder under `outputs/ui_runs/`. Earlier runs and `results/demo/`
 are never overwritten. The page shows the same safety notice as this README.
 
+**Open it from a phone or another computer on the same Wi-Fi (Windows + WSL).** WSL is not
+reachable from other devices by default. Run this once in PowerShell **as Administrator**, from the
+repo folder, while the app is running:
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\lan_access.ps1          # prints the URL, e.g. http://192.168.0.204:8501
+powershell -ExecutionPolicy Bypass -File scripts\lan_access.ps1 -Undo    # remove access again
+```
+The script detects the network in use and marks it Private, unless you pass `-KeepNetworkCategory`.
+It forwards the port to WSL and allows it only from the local network, only on Private networks.
+It does not open anything to the internet. Use `-Port` for a port other than 8501. Phone browsers
+only allow camera access over HTTPS, so webcam testing needs a different setup.
+
 ## Stream timing (experimental)
 The slideshow gives every image as long as its speech needs, so alerts can never collide.
 `vision_assist.stream` instead plays frames at a fixed rate, and speech takes real time:

@@ -8,40 +8,40 @@
     "cooldown_s": 6.0,
     "min_frame_s": 2.0,
     "gap_s": 0.5,
-    "device": "auto"
+    "device": "cpu"
   },
   "hardware": "cpu",
   "image_count": 8,
   "latency": {
-    "model_load_ms": 53.4,
+    "model_load_ms": 31.6,
     "inference": {
       "n": 8,
-      "mean_ms": 146.1,
-      "median_ms": 155.9,
-      "p95_ms": 166.4,
-      "max_ms": 166.4
+      "mean_ms": 104.7,
+      "median_ms": 95.9,
+      "p95_ms": 153.9,
+      "max_ms": 153.9
     },
     "tts": {
       "n": 8,
-      "mean_ms": 18.6,
-      "median_ms": 18.3,
-      "p95_ms": 20.3,
-      "max_ms": 20.3
+      "mean_ms": 15.8,
+      "median_ms": 14.3,
+      "p95_ms": 22.8,
+      "max_ms": 22.8
     },
     "per_frame_detect_to_audio": {
       "n": 8,
-      "mean_ms": 180.7,
-      "median_ms": 190.1,
-      "p95_ms": 201.4,
-      "max_ms": 201.4
+      "mean_ms": 129.5,
+      "median_ms": 113.2,
+      "p95_ms": 199.6,
+      "max_ms": 199.6
     }
   },
   "outputs": {
     "audio": "vision_assist_demo.wav",
-    "audio_duration_s": 29.7,
+    "audio_duration_s": 29.8,
     "video": "vision_assist_demo.mp4",
     "video_probe": {
-      "duration_s": 29.7,
+      "duration_s": 29.8,
       "has_video": true,
       "has_audio": true
     }
@@ -51,7 +51,7 @@
       "index": 1,
       "image": "IMG_23777.jpg",
       "start_s": 0.0,
-      "duration_s": 4.5,
+      "duration_s": 4.6,
       "detections": [
         {
           "class_name": "Road",
@@ -159,22 +159,6 @@
           "box_area_frac": 0.0126
         },
         {
-          "class_name": "Tree",
-          "tier": "medium",
-          "image_region": "left",
-          "confidence": 0.5287,
-          "box_area_frac": 0.0537
-        }
-      ],
-      "alerts_suppressed": [
-        {
-          "class_name": "Electrical Pole",
-          "tier": "medium",
-          "image_region": "centre",
-          "confidence": 0.5856,
-          "box_area_frac": 0.0094
-        },
-        {
           "class_name": "Person",
           "tier": "medium",
           "image_region": "left",
@@ -182,13 +166,29 @@
           "box_area_frac": 0.0056
         }
       ],
-      "message": "Caution. Car, centre. Tree, left.",
-      "inference_ms": 166.4
+      "alerts_suppressed": [
+        {
+          "class_name": "Tree",
+          "tier": "medium",
+          "image_region": "left",
+          "confidence": 0.5287,
+          "box_area_frac": 0.0537
+        },
+        {
+          "class_name": "Electrical Pole",
+          "tier": "medium",
+          "image_region": "centre",
+          "confidence": 0.5856,
+          "box_area_frac": 0.0094
+        }
+      ],
+      "message": "Caution. Car, centre. Person, left.",
+      "inference_ms": 142.0
     },
     {
       "index": 2,
       "image": "IMG_22849.jpg",
-      "start_s": 4.5,
+      "start_s": 4.6,
       "duration_s": 3.0,
       "detections": [
         {
@@ -215,13 +215,13 @@
       ],
       "alerts_suppressed": [],
       "message": "Caution. Bus, centre.",
-      "inference_ms": 162.7
+      "inference_ms": 153.9
     },
     {
       "index": 3,
       "image": "IMG_23795.jpg",
-      "start_s": 7.5,
-      "duration_s": 5.0,
+      "start_s": 7.6,
+      "duration_s": 4.9,
       "detections": [
         {
           "class_name": "Road",
@@ -391,7 +391,7 @@
         }
       ],
       "message": "Caution. Motorcycle, right. Tree, centre.",
-      "inference_ms": 129.2
+      "inference_ms": 64.5
     },
     {
       "index": 4,
@@ -505,13 +505,13 @@
         }
       ],
       "message": "Caution. Motorcycle, left.",
-      "inference_ms": 116.8
+      "inference_ms": 81.7
     },
     {
       "index": 5,
       "image": "IMG_24209.jpg",
       "start_s": 15.9,
-      "duration_s": 3.9,
+      "duration_s": 3.8,
       "detections": [
         {
           "class_name": "Pedestrian crosswalk",
@@ -616,13 +616,13 @@
       ],
       "alerts_suppressed": [],
       "message": "Person, right. Crosswalk, centre.",
-      "inference_ms": 152.3
+      "inference_ms": 123.8
     },
     {
       "index": 6,
       "image": "IMG_23764.jpg",
-      "start_s": 19.8,
-      "duration_s": 3.5,
+      "start_s": 19.7,
+      "duration_s": 3.7,
       "detections": [
         {
           "class_name": "Person",
@@ -723,18 +723,18 @@
       ],
       "alerts_spoken": [
         {
+          "class_name": "Person",
+          "tier": "medium",
+          "image_region": "centre",
+          "confidence": 0.6928,
+          "box_area_frac": 0.0341
+        },
+        {
           "class_name": "Tree",
           "tier": "medium",
           "image_region": "centre",
           "confidence": 0.5713,
           "box_area_frac": 0.3874
-        },
-        {
-          "class_name": "Tree",
-          "tier": "medium",
-          "image_region": "left",
-          "confidence": 0.4412,
-          "box_area_frac": 0.1263
         }
       ],
       "alerts_suppressed": [
@@ -746,20 +746,20 @@
           "box_area_frac": 0.0473
         },
         {
-          "class_name": "Person",
+          "class_name": "Tree",
           "tier": "medium",
-          "image_region": "centre",
-          "confidence": 0.6928,
-          "box_area_frac": 0.0341
+          "image_region": "left",
+          "confidence": 0.4412,
+          "box_area_frac": 0.1263
         }
       ],
-      "message": "Tree, centre. Tree, left.",
-      "inference_ms": 121.0
+      "message": "Person, centre. Tree, centre.",
+      "inference_ms": 79.9
     },
     {
       "index": 7,
       "image": "IMG_20955.jpg",
-      "start_s": 23.3,
+      "start_s": 23.4,
       "duration_s": 3.2,
       "detections": [
         {
@@ -786,12 +786,12 @@
       ],
       "alerts_suppressed": [],
       "message": "Caution. Stairs, centre.",
-      "inference_ms": 159.5
+      "inference_ms": 100.4
     },
     {
       "index": 8,
       "image": "IMG_20822.jpg",
-      "start_s": 26.5,
+      "start_s": 26.6,
       "duration_s": 3.2,
       "detections": [
         {
@@ -818,7 +818,7 @@
       ],
       "alerts_suppressed": [],
       "message": "Caution. Manhole, centre.",
-      "inference_ms": 160.9
+      "inference_ms": 91.3
     }
   ]
 }

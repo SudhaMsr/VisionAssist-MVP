@@ -54,6 +54,10 @@ HAZARD_TIERS: dict[str, int] = {
 # Scene context that would be present in nearly every frame.
 IGNORED_CLASSES = frozenset({"Road", "Building"})
 
+# Can walk into the user's path. Ranked before static objects of the same tier,
+# whose boxes (a tree's canopy, for example) are often far larger.
+MOVING_CLASSES = frozenset({"Person", "Dog"})
+
 # Spoken forms for labels that read badly (including the dataset's typo).
 SPOKEN_NAMES = {
     "Teraffic Barrel": "traffic barrel",
@@ -105,7 +109,8 @@ class Alert:
 def prioritise(detections: list[Detection]) -> list[Alert]:
     """Collapse detections to one alert per (class, region), most urgent first.
 
-    Order: tier, then larger box, then higher confidence. Unknown classes are
+    Order: tier, then moving classes before static ones, then larger box, then
+    higher confidence. Unknown classes are
     treated as MEDIUM rather than dropped, so a mislabelled checkpoint fails loud
     in speech rather than silently.
     """
@@ -123,7 +128,9 @@ def prioritise(detections: list[Detection]) -> list[Alert]:
         current = best.get(alert.key)
         if current is None or (alert.area_frac, alert.confidence) > (current.area_frac, current.confidence):
             best[alert.key] = alert
-    return sorted(best.values(), key=lambda a: (a.tier, -a.area_frac, -a.confidence))
+    return sorted(
+        best.values(), key=lambda a: (a.tier, a.class_name not in MOVING_CLASSES, -a.area_frac, -a.confidence)
+    )
 
 
 def compose_message(alerts: list[Alert]) -> str | None:

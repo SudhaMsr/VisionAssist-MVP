@@ -239,6 +239,7 @@ def run_stream(
     make_video: bool = True,
     device: str | None = None,
     urgent_interrupts: bool = True,
+    assist_model: Path | None = None,
 ) -> dict:
     if not fps > 0:
         raise ValueError(f"fps must be > 0, got {fps}")
@@ -246,7 +247,7 @@ def run_stream(
     timer = StreamTimer(scheduler, gap_s=gap_s, urgent_interrupts=urgent_interrupts)
     engine = tts_engine or find_tts_engine()
     ffmpeg = find_ffmpeg() if make_video else None
-    detector = Detector(model_path, conf=conf, imgsz=imgsz, device=device)
+    detector = Detector(model_path, conf=conf, imgsz=imgsz, device=device, assist_model_path=assist_model)
     detector.detect(np.zeros((imgsz, imgsz, 3), dtype=np.uint8))  # warm-up
 
     out_dir = Path(out_dir)
@@ -321,7 +322,8 @@ def run_stream(
         "model": Path(model_path).name,
         "settings": {"fps": fps, "conf": conf, "imgsz": imgsz, "max_alerts": max_alerts,
                      "cooldown_s": cooldown_s, "gap_s": gap_s, "urgent_interrupts": urgent_interrupts,
-                     "device": device or "auto"},
+                     "device": device or "auto",
+                     **({"assist_model": Path(assist_model).name} if assist_model else {})},
         "frames": len(records),
         "metrics": timer.metrics(stream_s),
         "processing_ms": {"frame_period_ms": round(1000 * period, 1), "inference": _summary(inference_ms),
@@ -365,6 +367,9 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--cooldown", type=float, default=6.0, help="Seconds before repeating the same alert")
     p.add_argument("--gap", type=float, default=0.5, help="Silence after each message before the next (s)")
     p.add_argument("--device", default=None, help="e.g. cpu, 0 (default: auto)")
+    p.add_argument("--assist-model", default=None,
+                   help="Optional COCO model (e.g. models/yolov8n.pt) that adds cars, people, buses, trucks, "
+                   "motorcycles and bicycles the main model misses. Off by default")
     p.add_argument("--tts", default=None, help="TTS executable (default: espeak-ng / $VISION_ASSIST_TTS)")
     p.add_argument("--no-video", action="store_true", help="Skip MP4 export")
     p.add_argument("--no-interrupt", action="store_true",
@@ -395,7 +400,7 @@ def main(argv: list[str] | None = None) -> int:
             frames, resolve_model_path(args.model), out, fps=args.fps, conf=args.conf, imgsz=args.imgsz,
             max_alerts=args.max_alerts, cooldown_s=args.cooldown, gap_s=args.gap,
             tts_engine=find_tts_engine(args.tts), make_video=not args.no_video, device=args.device,
-            urgent_interrupts=not args.no_interrupt,
+            urgent_interrupts=not args.no_interrupt, assist_model=args.assist_model,
         )
     except (OSError, ValueError, RuntimeError) as exc:
         print(f"error: {exc}", file=sys.stderr)

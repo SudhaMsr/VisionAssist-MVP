@@ -235,6 +235,7 @@ def _write_video(frame_paths, slots, audio_path, video_path, ffmpeg) -> None:
     writer = cv2.VideoWriter(str(silent), cv2.VideoWriter_fourcc(*"mp4v"), VIDEO_FPS, (width, height))
     if not writer.isOpened():
         raise RuntimeError("OpenCV could not open a video writer")
+    written, elapsed_s = 0, 0.0
     try:
         for frame_path, slot in zip(frame_paths, slots):
             frame = cv2.imread(str(frame_path))
@@ -244,8 +245,13 @@ def _write_video(frame_paths, slots, audio_path, video_path, ffmpeg) -> None:
                 resized = cv2.resize(frame, (int(frame.shape[1] * s), int(frame.shape[0] * s)))
                 frame = np.zeros((height, width, 3), dtype=np.uint8)
                 frame[: resized.shape[0], : resized.shape[1]] = resized
-            for _ in range(round(slot * VIDEO_FPS)):
+            # Round the running total, not each slot, so slots that are not whole
+            # video frames (stream mode) do not drift out of sync with the audio.
+            elapsed_s += slot
+            count = round(elapsed_s * VIDEO_FPS) - written
+            for _ in range(count):
                 writer.write(frame)
+            written += count
     finally:
         writer.release()
     proc = subprocess.run(

@@ -59,10 +59,17 @@ class Detector:
         if not 0.0 < conf < 1.0:
             raise ValueError(f"conf must be in (0, 1), got {conf}")
 
-        from ultralytics import YOLO  # imported lazily: heavy dependency
+        try:
+            from ultralytics import YOLO  # imported lazily: heavy dependency
+        except ImportError as exc:
+            raise RuntimeError("ultralytics is not installed: pip install -r requirements.txt") from exc
 
         start = time.perf_counter()
-        self.model = YOLO(str(model_path))
+        try:
+            self.model = YOLO(str(model_path))
+        except Exception as exc:  # ultralytics raises TypeError/RuntimeError/pickle errors for bad files
+            reason = (str(exc).strip().splitlines() or [type(exc).__name__])[0]
+            raise RuntimeError(f"Could not load checkpoint {model_path}: {reason}") from exc
         self.load_ms = (time.perf_counter() - start) * 1000
         self.model_path = model_path
         self.names: dict[int, str] = dict(self.model.names)

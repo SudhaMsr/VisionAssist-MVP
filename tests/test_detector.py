@@ -79,3 +79,24 @@ def test_cpu_inference_latency(detector, ultralytics_assets, record_property):
     record_property("median_inference_ms", round(median, 1))
     print(f"\nCPU inference over 10 runs: median {median:.1f} ms, max {max(times):.1f} ms")
     assert median < CPU_MEDIAN_INFERENCE_BUDGET_MS
+
+
+def test_corrupt_checkpoint_raises_clear_error(tmp_path):
+    pytest.importorskip("ultralytics")
+    bad = tmp_path / "bad.pt"
+    bad.write_bytes(b"not a checkpoint")
+    with pytest.raises(RuntimeError, match="Could not load checkpoint"):
+        Detector(bad)
+
+
+def test_checkpoint_error_without_message_is_still_reported(tmp_path, monkeypatch):
+    ultralytics = pytest.importorskip("ultralytics")
+
+    def broken_loader(*args, **kwargs):
+        raise Exception()
+
+    monkeypatch.setattr(ultralytics, "YOLO", broken_loader)
+    ckpt = tmp_path / "x.pt"
+    ckpt.write_bytes(b"x")
+    with pytest.raises(RuntimeError, match="Could not load checkpoint .*: Exception"):
+        Detector(ckpt)

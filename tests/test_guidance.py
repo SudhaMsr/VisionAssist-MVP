@@ -42,6 +42,40 @@ def test_within_tier_larger_box_first():
     assert [a.class_name for a in alerts] == ["Bus", "Car"]
 
 
+def test_people_and_dogs_rank_before_larger_static_objects_in_same_tier():
+    # Demo frame 6: tree canopies have far bigger boxes than the people walking below them.
+    alerts = prioritise([
+        det("Tree", 200, 400, 0, 300),  # centre, largest
+        det("Tree", 0, 150, 0, 300),  # left, large
+        det("Person", 450, 480, 300, 400),  # right, small
+        det("Person", 280, 300, 320, 400),  # centre, smaller
+        det("Bench", 500, 600, 200, 400),  # right, large static
+        det("Dog", 50, 70, 380, 400),  # left, tiny
+    ])
+    assert [(a.class_name, a.region) for a in alerts] == [
+        ("Person", "right"), ("Person", "centre"), ("Dog", "left"),
+        ("Tree", "centre"), ("Tree", "left"), ("Bench", "right"),
+    ]
+    spoken, _ = AlertScheduler(max_alerts=2).select(alerts, now_s=0.0)
+    assert compose_message(spoken) == "Person, right. Person, centre."
+
+
+def test_high_tier_still_ranked_before_people():
+    alerts = prioritise(
+        [det("Person", 0, 590, 0, 390), det("Manhole", 250, 300, 300, 320), det("Car", 500, 520, 0, 20)]
+    )
+    assert [a.class_name for a in alerts] == ["Manhole", "Car", "Person"]
+    spoken, _ = AlertScheduler(max_alerts=2).select(alerts, now_s=0.0)
+    assert compose_message(spoken) == "Caution. Manhole, centre. Car, right."
+
+
+def test_static_only_scene_keeps_box_size_order():
+    alerts = prioritise(
+        [det("Tree", 0, 50, 0, 50), det("Bench", 200, 400, 0, 300), det("Electrical Pole", 500, 600, 0, 100)]
+    )
+    assert [a.class_name for a in alerts] == ["Bench", "Electrical Pole", "Tree"]
+
+
 def test_context_classes_ignored():
     assert prioritise([det("Road"), det("Building")]) == []
 

@@ -48,7 +48,7 @@ Alert rules.
 | ROD **test** mAP50 / mAP50-95 (1,629 images) | **0.913 / 0.746** | `results/rod_yolov8n_50ep_test/metrics_test.json` |
 | ROD test precision / recall | 0.902 / 0.845 | same |
 | ROD validation mAP50 / mAP50-95 (3,511 images) | 0.907 / 0.726 | `results/rod_yolov8n_50ep/metrics.json` |
-| Automated tests | 77 passed, 0 failed (locally with espeak-ng, 2026-10-14). The Kaggle runs predate the 32 newest tests | `pytest -q` |
+| Automated tests | 88 passed, 0 failed (locally with espeak-ng and `requirements-ui.txt`, 2026-10-14). Without the UI extra, the 3 web-page tests are skipped. The Kaggle runs predate the 43 newest tests | `pytest -q` |
 | CPU inference per image (640 px) | Local CPU: mean 105 ms, median 96 ms (8 demo images, 2026-10-14). The earlier Kaggle CPU run gave a mean of 146 ms. Load affects it: about 45 ms per frame in the local stream runs | `results/demo/demo_results.json` → `latency` (local). The Kaggle figure is in that file's previous version in git |
 
 The scores are object-detection accuracy on the ROD dataset. They do not measure how safe or
@@ -139,6 +139,23 @@ checks for a missing or corrupt checkpoint, unreadable or unsupported inputs (su
 missing espeak-ng and invalid settings. If any check fails, it prints a one-line `error:` message,
 exits with code 1 and writes nothing. An output folder that cannot be written, or a speech failure
 during the run, is also reported as a one-line `error:`.
+
+## Web UI (Streamlit)
+`app.py` is a local web page around the same pipeline. It analyses an MP4 with the stream
+mode, which includes the single speech channel and urgent interruption. You can:
+- upload an MP4, or choose one from `outputs/samples/`
+- set the frame rate, confidence threshold, alert count and cooldown
+- view the summary metrics, the annotated video with speech, an audio player, the spoken
+  alerts, every detection, and a frame-by-frame viewer
+- download the MP4, WAV, transcript, JSON, or everything as a ZIP
+
+```bash
+pip install -r requirements-ui.txt
+python scripts/make_sample_video.py     # optional: two sample MP4s from the ROD clips (needs ROD)
+streamlit run app.py
+```
+Each analysis is written to a new folder under `outputs/ui_runs/`. Earlier runs and `results/demo/`
+are never overwritten. The page shows the same safety notice as this README.
 
 ## Stream timing (experimental)
 The slideshow gives every image as long as its speech needs, so alerts can never collide.
@@ -243,12 +260,14 @@ talkativeness.
 
 ## Repository layout
 ```
-vision_assist/        reusable package (detector, guidance, speech, demo CLI, stream timing CLI)
+vision_assist/        reusable package (detector, guidance, speech, demo CLI, stream timing CLI, web UI helpers)
+app.py                Streamlit web UI (streamlit run app.py)
 tests/                pytest suite (fake TTS engine + real-model smoke tests)
 scripts/
   evaluate_checkpoint.py   test/valid-split evaluation (same label prep as training)
   select_demo_images.py    regenerates configs/demo_images.txt from ROD labels
   select_stream_clips.py   regenerates the two configs/stream_*_clip.txt frame lists
+  make_sample_video.py     builds sample MP4s for the web UI in outputs/samples/
 configs/
   demo_images.txt          the 8 demo images, in playback order
   stream_*_clip.txt        ordered ROD video frames for stream timing (people, dashcam)

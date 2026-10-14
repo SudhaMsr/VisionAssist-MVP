@@ -1,0 +1,4 @@
+# Web UI (app.py) on top of the core pipeline. Kept separate so the Kaggle notebook
+# and core installs stay lean. Tested with streamlit 1.65.0.
+-r requirements.txt
+streamlit>=1.40,<2

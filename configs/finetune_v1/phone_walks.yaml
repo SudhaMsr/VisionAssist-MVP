@@ -1,0 +1,7 @@
+# Which phone walk goes in which split (see docs/phone_footage_spec.md).
+# A walk is one video, named after its file, e.g. walk01_high_street.mp4 -> walk01_high_street.
+# Split by WALK, never by frame: frames of one walk are near-duplicates.
+# Test walks are never trained on; record them in different streets from the training walks.
+train: []   # about 5 walks, e.g. [walk01_high_street, walk02_park_road, ...]
+val: []     # about 1 walk
+test: []    # about 3 walks, different streets

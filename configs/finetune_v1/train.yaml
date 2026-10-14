@@ -1,0 +1,39 @@
+# Fine-tune v1 hyperparameters (Ultralytics 8.4.175). Loaded by notebooks/finetune_v1.ipynb.
+# Both runs start from the shipped ROD model, which is only read, never written.
+start_checkpoint: models/rod_yolov8n_50ep_best.pt
+common:
+  epochs: 30
+  patience: 10
+  imgsz: 640
+  batch: 32
+  optimizer: SGD          # pinned; "auto" picked MuSGD for the original run
+  lr0: 0.002              # fine-tune: 5x lower than the original 0.01 to keep what the model knows
+  lrf: 0.1
+  cos_lr: true
+  momentum: 0.937
+  weight_decay: 0.0005
+  warmup_epochs: 1.0
+  close_mosaic: 5
+  mosaic: 1.0
+  mixup: 0.0
+  hsv_h: 0.015
+  hsv_s: 0.7
+  hsv_v: 0.4
+  fliplr: 0.5
+  scale: 0.5
+  translate: 0.1
+  degrees: 0.0
+  seed: 42
+  deterministic: true
+  amp: true
+  workers: 2
+  cache: false
+  save_period: 5
+  plots: true
+runs:
+  A:   # main candidate: ROD + COCO subset + phone train walks (whatever data_v1.yaml lists)
+    data: data_v1.yaml
+    name: ft_v1_A_rod_coco
+  B:   # control: same schedule on ROD only, to separate "new data helped" from "more training"
+    data: data_v1_rod_only.yaml
+    name: ft_v1_B_rod_only

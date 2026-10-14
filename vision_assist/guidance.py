@@ -58,6 +58,10 @@ IGNORED_CLASSES = frozenset({"Road", "Building"})
 # whose boxes (a tree's canopy, for example) are often far larger.
 MOVING_CLASSES = frozenset({"Person", "Dog"})
 
+# Fall hazards. Ranked first in the high tier, so vehicle alerts (whose boxes are
+# usually far larger) can never push a staircase or open manhole out of the alert slots.
+FALL_HAZARDS = frozenset({"Stairs", "Manhole"})
+
 # Spoken forms for labels that read badly (including the dataset's typo).
 SPOKEN_NAMES = {
     "Teraffic Barrel": "traffic barrel",
@@ -109,8 +113,8 @@ class Alert:
 def prioritise(detections: list[Detection]) -> list[Alert]:
     """Collapse detections to one alert per (class, region), most urgent first.
 
-    Order: tier, then moving classes before static ones, then larger box, then
-    higher confidence. Unknown classes are
+    Order: tier, then fall hazards (stairs, manholes) first, then moving classes
+    before static ones, then larger box, then higher confidence. Unknown classes are
     treated as MEDIUM rather than dropped, so a mislabelled checkpoint fails loud
     in speech rather than silently.
     """
@@ -129,7 +133,10 @@ def prioritise(detections: list[Detection]) -> list[Alert]:
         if current is None or (alert.area_frac, alert.confidence) > (current.area_frac, current.confidence):
             best[alert.key] = alert
     return sorted(
-        best.values(), key=lambda a: (a.tier, a.class_name not in MOVING_CLASSES, -a.area_frac, -a.confidence)
+        best.values(),
+        key=lambda a: (
+            a.tier, a.class_name not in FALL_HAZARDS, a.class_name not in MOVING_CLASSES, -a.area_frac, -a.confidence
+        ),
     )
 
 

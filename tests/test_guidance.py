@@ -146,3 +146,29 @@ def test_lower_tier_does_not_replace_repeat_held_hazard():
 def test_scheduler_rejects_bad_config(kwargs):
     with pytest.raises(ValueError):
         AlertScheduler(**kwargs)
+
+
+def test_fall_hazards_cannot_be_pushed_out_by_larger_vehicles():
+    # Validation image IMG_22722 with the COCO assist: two cars outranked a manhole.
+    alerts = prioritise([
+        det("Car", 0, 150, 0, 300),  # left, large
+        det("Car", 450, 600, 0, 300),  # right, large
+        det("Manhole", 270, 320, 360, 390),  # centre, small
+        det("Stairs", 160, 190, 380, 400),  # left, tiny
+    ])
+    assert [a.class_name for a in alerts] == ["Manhole", "Stairs", "Car", "Car"]
+    spoken, _ = AlertScheduler(max_alerts=2).select(alerts, now_s=0.0)
+    assert compose_message(spoken) == "Caution. Manhole, centre. Stairs, left."
+
+
+def test_vehicles_keep_box_size_order_after_fall_hazards():
+    alerts = prioritise([det("Car", 0, 50), det("Manhole", 260, 300, 350, 370), det("Bus", 400, 600, 0, 400)])
+    assert [a.class_name for a in alerts] == ["Manhole", "Bus", "Car"]
+
+
+def test_repeat_held_fall_hazard_still_frees_its_slot():
+    # Unchanged repeat rule: a manhole said 1 s ago is held back, so a vehicle may be spoken.
+    s = AlertScheduler(max_alerts=1, cooldown_s=5)
+    s.select(prioritise([det("Manhole", 260, 300, 350, 370)]), now_s=0)
+    spoken, _ = s.select(prioritise([det("Manhole", 260, 300, 350, 370), det("Car", 0, 590)]), now_s=1)
+    assert [a.class_name for a in spoken] == ["Car"]

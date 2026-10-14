@@ -1,7 +1,7 @@
 """Reproducible image-sequence demo: detect -> prioritise -> speak -> MP4.
 
 Usage:
-    python -m vision_assist.demo --images PATH [--out DIR] [--limit 8]
+    python -m vision_assist.demo [--images PATH] [--image-list FILE | --limit N] [--out DIR]
 
 Treats a list of still images as a slideshow. It is not a camera pipeline.
 """
@@ -24,7 +24,7 @@ import cv2
 import numpy as np
 
 from . import __version__
-from .config import list_images, read_image_list, resolve_image_dir, resolve_model_path, resolve_output_dir
+from .config import resolve_image_dir, resolve_model_path, resolve_output_dir, select_images
 from .detector import Detector
 from .guidance import AlertScheduler, compose_message, prioritise
 from .speech import assemble_timeline, find_tts_engine, synthesize, wav_duration
@@ -109,12 +109,12 @@ def run_demo(
 ) -> dict:
     if not images:
         raise ValueError("No images to process")
-    out_dir = Path(out_dir)
-    frames_dir = out_dir / "frames"
-    clips_dir = out_dir / "speech_clips"
-    for d in (frames_dir, clips_dir):
-        d.mkdir(parents=True, exist_ok=True)
-
+    # Check everything that can fail before writing any output, so a bad input
+    # never leaves a half-finished demo behind.
+    scheduler = AlertScheduler(max_alerts=max_alerts, cooldown_s=cooldown_s)
+    unreadable = [p for p in images if cv2.imread(str(p)) is None]
+    if unreadable:
+        raise ValueError(f"{len(unreadable)} input image(s) could not be read: {[str(p) for p in unreadable[:3]]}")
     engine = tts_engine or find_tts_engine()
     ffmpeg = find_ffmpeg() if make_video else None  # fail early, before inference
 
@@ -122,7 +122,20 @@ def run_demo(
     # Warm-up so the first timed inference doesn't include one-off setup cost.
     detector.detect(np.zeros((imgsz, imgsz, 3), dtype=np.uint8))
 
-    scheduler = AlertScheduler(max_alerts=max_alerts, cooldown_s=cooldown_s)
+    out_dir = Path(out_dir)
+    frames_dir = out_dir / "frames"
+    clips_dir = out_dir / "speech_clips"
+    for d in (frames_dir, clips_dir):
+        d.mkdir(parents=True, exist_ok=True)
+    # Remove this tool's files from an earlier run, so a new run (even one that
+    # fails part-way) is never mixed with leftovers. Other files are left alone.
+    stale = [*frames_dir.glob("frame_*.jpg"), *clips_dir.glob("alert_*.wav")]
+    stale += [out_dir / name for name in (
+        "vision_assist_demo.wav", "vision_assist_demo.mp4", "transcript.txt", "demo_results.json",
+    )]
+    for path in stale:
+        path.unlink(missing_ok=True)
+
     timeline_s = 0.0
     records, clips, slots, frame_paths = [], [], [], []
     inference_ms, tts_ms, end_to_end_ms = [], [], []
@@ -252,12 +265,14 @@ def _write_video(frame_paths, slots, audio_path, video_path, ffmpeg) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--images", help="Image file or directory (default: $VISION_ASSIST_IMAGES or Kaggle ROD valid/images)")
+    p.add_argument("--images", help="Image file or directory (default: $VISION_ASSIST_IMAGES, then ROD valid/images "
+                   "under datasets/ or on Kaggle)")
     p.add_argument("--model", help="Checkpoint path (default: models/rod_yolov8n_50ep_best.pt)")
     p.add_argument("--out", help="Output directory (default: outputs/demo)")
-    p.add_argument("--image-list", help="Text file of image names inside --images, in playback order "
-                   "(e.g. configs/demo_images.txt); overrides --limit")
-    p.add_argument("--limit", type=int, default=8, help="Max images, in sorted order (default 8)")
+    p.add_argument("--image-list", help="Text file of image names inside --images, in playback order; overrides "
+                   "--limit (default: configs/demo_images.txt if all its images are present)")
+    p.add_argument("--limit", type=int, default=None, help="Use the first N images in sorted order (default 8 "
+                   "when the curated list does not apply)")
     p.add_argument("--conf", type=float, default=0.35)
     p.add_argument("--imgsz", type=int, default=640)
     p.add_argument("--max-alerts", type=int, default=2, help="Max objects named per frame")
@@ -269,10 +284,8 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         image_dir = resolve_image_dir(args.images)
-        if args.image_list:
-            images = read_image_list(args.image_list, image_dir)
-        else:
-            images = list_images(image_dir, limit=args.limit)
+        images, chosen = select_images(image_dir, args.image_list, args.limit)
+        print(f"Images: {len(images)} from {image_dir} ({chosen})", flush=True)
         summary = run_demo(
             images=images,
             model_path=resolve_model_path(args.model),
@@ -285,7 +298,7 @@ def main(argv: list[str] | None = None) -> int:
             make_video=not args.no_video,
             device=args.device,
         )
-    except (FileNotFoundError, ValueError, RuntimeError) as exc:
+    except (OSError, ValueError, RuntimeError) as exc:  # OSError covers missing files and unwritable --out
         print(f"error: {exc}", file=sys.stderr)
         return 1
     out = resolve_output_dir(args.out)
